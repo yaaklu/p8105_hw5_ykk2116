@@ -1,0 +1,13 @@
+---
+title: "P8105_hw5_ykk2116"
+author: "Yaa Klu"
+date: "11/6/2018"
+output: github_document
+---
+
+_Loading tidyverse_
+
+```{r}
+library(tidyverse)
+```
+
