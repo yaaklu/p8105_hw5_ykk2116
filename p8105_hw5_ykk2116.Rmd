@@ -9,6 +9,7 @@ _Loading tidyverse and rvest_
 
 ```{r}
 library(tidyverse)
+library(plotly)
 library(rvest)
 ```
 
@@ -20,7 +21,7 @@ _Making dataframe containing all file names_
 
 ```{r}
 allfiles_df = tibble(filepath = list.files("./data/", pattern = "*.csv", full.names = TRUE),
-filename = basename(filepath))
+                     filename = basename(filepath))
 ```
 
 
@@ -37,10 +38,11 @@ data_reading = function(data){
 _Iterating and reading in data for each subject, data cleaning_
 
 ```{r, message=FALSE}
-data = allfiles_df %>% mutate(data =  purrr::map(allfiles_df$filepath, data_reading)) %>%
+data_f = allfiles_df %>% mutate(data = purrr::map(allfiles_df$filepath, data_reading)) %>%
   unnest() %>% 
-  select(-filepath)
-  
+  select(-filepath) %>%
+  gather(key = week, value = value, week_1:week_8)
+     
 ```
 
 
