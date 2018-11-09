@@ -41,9 +41,12 @@ _Iterating and reading in data for each subject, data cleaning_
 data_f = allfiles_df %>% mutate(data = purrr::map(allfiles_df$filepath, data_reading)) %>%
   unnest() %>% 
   select(-filepath) %>%
-  gather(key = week, value = value, week_1:week_8)
-     
-```
+  gather(key = week, value = value, week_1:week_8) %>%
+   mutate(id = str_replace(filename, ".csv",""),
+         week = as.numeric(str_replace(week, "week_", ""))) %>%
+    separate(id, into = c("group", "id"), sep = "_") %>% 
+  mutate(id = as.factor(id))  
+``` 
 
 
 
