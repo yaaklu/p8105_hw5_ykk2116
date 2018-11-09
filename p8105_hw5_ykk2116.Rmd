@@ -91,20 +91,16 @@ data_summary = homicide_data %>%
   mutate(total = closed_by_arrest + no_arrest)
 ```
 
-
+_Estimating the proportion of homicides in Baltimore that are unresolved_
 ```{r}
 city_baltimore = data_summary %>% filter(city_state == "Baltimore, MD")
 
-baltimore_prop = prop.test(baltimore$no_arrest, baltimore$total) %>% 
+prop_baltimore = prop.test(city_baltimore$no_arrest, city_baltimore$total) %>% 
   broom::tidy() %>% 
   select(estimate, conf.low, conf.high) %>% 
   janitor::clean_names(dat = .) %>% 
   knitr::kable()
-
-baltimore_prop
-
-
-
+prop_baltimore
 ```
 
  
