@@ -34,6 +34,13 @@ data_reading = function(data){
 ```
 
 
+_Iterating and reading in data for each subject, data cleaning_
+
+```{r, message=FALSE}
+data = allfiles_df %>% mutate(data =  purrr::map(allfiles_df$filepath, data_reading))
+  
+```
+
 
 
 
