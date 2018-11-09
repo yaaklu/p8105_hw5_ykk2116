@@ -60,6 +60,9 @@ ggplot(data_f, aes(x = week, y = value, color = id, group = id)) + geom_point() 
   )
 ```
 
+_Differences between experimental and control groups_
+
+**Looking at all control subjects as a group, there was no clear trend with time. Overall it seems that there was no difference between observations at week 1 and week 8. In between the 8 weeks there were random increases and decreases among specific subjects. In the experimental arm, there was an increase in the observation value from week 1 to week 8. In between the 8 weeks, there were some ups and downs just as was observed in the control group. To conclude, the values of observation were higher in the experimental arm after 8 weeks, whiles in the control arm, there was no increase**
 
 
 
