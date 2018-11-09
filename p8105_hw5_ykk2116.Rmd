@@ -24,5 +24,17 @@ filename = basename(filepath))
 ```
 
 
+_Function for data_
+
+```{r}
+data_reading = function(data){
+  
+  read_csv(file = data)
+}
+```
+
+
+
+
 
 
