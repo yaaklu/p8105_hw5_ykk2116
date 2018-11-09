@@ -68,13 +68,15 @@ _Differences between experimental and control groups_
 
 ### Problem 2
 
-_Reading data_
+_Reading data and creating variable_
 
 
 ```{r}
-homicide_data = read_csv("https://raw.githubusercontent.com/washingtonpost/data-homicides/master/homicide-data.csv", col_names = TRUE)
-
-
+homicide_data = read_csv("https://raw.githubusercontent.com/washingtonpost/data-homicides/master/homicide-data.csv", col_names = TRUE) %>% 
+  mutate(city_state = str_c(city, ",", " ", state))
 ```
 
+_Description of data_
+
+**
 
