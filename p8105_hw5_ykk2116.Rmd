@@ -48,6 +48,7 @@ data_f = allfiles_df %>% mutate(data = purrr::map(allfiles_df$filepath, data_rea
   mutate(id = as.factor(id))  
 ``` 
 
+
 _Spaghetti Graph_
 
 ```{r}
@@ -60,25 +61,28 @@ ggplot(data_f, aes(x = week, y = value, color = id, group = id)) + geom_point() 
   )
 ```
 
+
 _Differences between experimental and control groups_
 
-**Looking at all control subjects as a group, there was no clear trend with time. Overall it seems that there was no difference between observations at week 1 and week 8. In between the 8 weeks there were random increases and decreases among specific subjects. In the experimental arm, there was an increase in the observation value from week 1 to week 8. In between the 8 weeks, there were some ups and downs just as was observed in the control group. To conclude, the values of observation were higher in the experimental arm after 8 weeks, whiles in the control arm, there was no increase**
+**Looking at all control subjects as a group, there was no clear trend with time. Overall it seems that there was no difference between observations at week 1 and week 8. In between the 8 weeks there were random increases and decreases among specific subjects. In the experimental arm, there was an increase in the observation value from week 1 to week 8. In between the 8 weeks, there were some ups and downs just as was observed in the control group. To conclude, the values of observation were higher in the experimental arm after 8 weeks. However in the control arm, the obervations at week 8 were similar to those at week 1.**
 
 
 
 ### Problem 2
 
-_Reading data and creating variable_
 
+_Reading data and creating variable_
 
 ```{r}
 homicide_data = read_csv("https://raw.githubusercontent.com/washingtonpost/data-homicides/master/homicide-data.csv", col_names = TRUE) %>% 
   mutate(city_state = str_c(city, ",", " ", state))
 ```
 
+
 _Description of raw data_
 
 **The raw data contains 52,179 homicide records. The data is described by 13 different variables including the race, sex, and age of victims and the date of incident report. It also contains the first and last names of victims and the state and city in which the homicide occured; longitude and latitude information was also collected. The desposition indicates whether the homicide case was closed without any arrest, closed due to arrest or still open with no arrest.**
+
 
 _Summarizing within cities to obtain the total number of homicides and the number of unsolved homicides_
 
@@ -90,6 +94,7 @@ data_summary = homicide_data %>%
   janitor::clean_names(dat = .) %>% 
   mutate(total = closed_by_arrest + no_arrest)
 ```
+
 
 _Estimating the proportion of homicides in Baltimore that are unresolved_
 
@@ -103,6 +108,7 @@ prop_baltimore = prop.test(city_baltimore$no_arrest, city_baltimore$total) %>%
   knitr::kable()
 prop_baltimore
 ```
+
 
 _Proportion of unsolved homicides and the confidence interval for each city_
 
@@ -124,4 +130,17 @@ unresolved_homi = data_summary %>%
   mutate(city_state = reorder(city_state, estimate)) %>% janitor::clean_names(dat = .)
 ```
 
+
+_A plot that shows the proportions of unresolved homicides and CIs for each city_
+
+```{r}
+ggplot(unresolved_homi, aes(x = city_state, y = estimate )) + 
+  geom_point() + geom_errorbar(aes(ymin = conf_low, ymax = conf_high)) + 
+  theme(axis.text.x = element_text(angle = 70, hjust = 1, size = 7)) +
+  labs(
+    title = "Proportions of unresolved homicides in each city with confidence intervals",
+    x = "City, State",
+    y = "Proportion of Unresolved Homicides (95% Confidence Interval)"
+  )
+```
 
