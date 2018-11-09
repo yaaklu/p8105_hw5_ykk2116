@@ -80,5 +80,17 @@ _Description of raw data_
 
 **The raw data contains 52,179 homicide records. The data is described by 13 different variables including the race, sex, and age of victims and the date of incident report. It also contains the first and last names of victims and the state and city in which the homicide occured; longitude and latitude information was also collected. The desposition indicates whether the homicide case was closed without any arrest, closed due to arrest or still open with no arrest.**
 
+_Summarizing within cities to obtain the total number of homicides and the number of unsolved homicides_
+
+```{r}
+data_summary = homicide_data %>% 
+  mutate(disposition = fct_collapse(homicide_data$disposition, "No arrest" = c("Closed without arrest","Open/No arrest"))) %>% group_by(city_state) %>% 
+  count(disposition) %>% 
+  spread(key = disposition, value = n) %>% 
+  janitor::clean_names(dat = .) %>% 
+  mutate(total = closed_by_arrest + no_arrest)
+```
+
+
  
 
