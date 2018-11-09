@@ -92,5 +92,20 @@ data_summary = homicide_data %>%
 ```
 
 
+```{r}
+city_baltimore = data_summary %>% filter(city_state == "Baltimore, MD")
+
+baltimore_prop = prop.test(baltimore$no_arrest, baltimore$total) %>% 
+  broom::tidy() %>% 
+  select(estimate, conf.low, conf.high) %>% 
+  janitor::clean_names(dat = .) %>% 
+  knitr::kable()
+
+baltimore_prop
+
+
+
+```
+
  
 
