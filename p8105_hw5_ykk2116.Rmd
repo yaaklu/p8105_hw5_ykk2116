@@ -115,3 +115,13 @@ prop_test = function(data_table){
 ```
 
 
+_Running a prop.test for each of the cities in the dataset, and extracting both the proportion of unsolved homicides and the confidence interval for each_  
+
+```{r}
+unresolved_homi = data_summary %>% 
+  group_by(city_state) %>% nest() %>% 
+  mutate(ci = map(data, prop_test)) %>% filter(city_state != "Tulsa, AL") %>% unnest() %>% 
+  mutate(city_state = reorder(city_state, estimate)) %>% janitor::clean_names(dat = .)
+```
+
+
