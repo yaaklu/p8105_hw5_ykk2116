@@ -92,6 +92,7 @@ data_summary = homicide_data %>%
 ```
 
 _Estimating the proportion of homicides in Baltimore that are unresolved_
+
 ```{r}
 city_baltimore = data_summary %>% filter(city_state == "Baltimore, MD")
 
@@ -103,5 +104,14 @@ prop_baltimore = prop.test(city_baltimore$no_arrest, city_baltimore$total) %>%
 prop_baltimore
 ```
 
- 
+_Proportion of unsolved homicides and the confidence interval for each city_
+
+```{r}
+prop_test = function(data_table){
+  try(prop.test(data_table$no_arrest, data_table$total) %>% 
+    broom::tidy() %>% 
+    select(estimate, conf.low, conf.high), silent = TRUE)
+}
+```
+
 
