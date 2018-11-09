@@ -76,7 +76,9 @@ homicide_data = read_csv("https://raw.githubusercontent.com/washingtonpost/data-
   mutate(city_state = str_c(city, ",", " ", state))
 ```
 
-_Description of data_
+_Description of raw data_
 
-**
+**The raw data contains 52,179 homicide records. The data is described by 13 different variables including the race, sex, and age of victims and the date of incident report. It also contains the first and last names of victims and the state and city in which the homicide occured; longitude and latitude information was also collected. The desposition indicates whether the homicide case was closed without any arrest, closed due to arrest or still open with no arrest.**
+
+ 
 
